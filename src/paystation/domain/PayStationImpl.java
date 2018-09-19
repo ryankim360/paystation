@@ -2,8 +2,6 @@ package paystation.domain;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-
 /**
  * Implementation of the pay station.
  *
