@@ -1,5 +1,9 @@
 package paystation.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Implementation of the pay station.
  *
@@ -23,17 +27,39 @@ public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
     private int timeBought;
+    private int totalEarned;
+    Map<Integer, Integer> coinMap;
+    
+    private int nickelCounter = 0;
+    private int dimeCounter = 0;
+    private int quarterCounter = 0;
+    
+    private int nickel = 5;
+    private int dime = 10;
+    private int quarter = 25;
+    
+    PayStationImpl() {
+        coinMap = new HashMap<>();
+    }
 
     @Override
     public void addPayment(int coinValue)
             throws IllegalCoinException {
+        
         switch (coinValue) {
-            case 5: break;
-            case 10: break;
-            case 25: break;
+            case 5:
+                nickelCounter++;
+                break;
+            case 10: 
+                dimeCounter++;
+                break;
+            case 25: 
+                quarterCounter++;
+                break;
             default:
                 throw new IllegalCoinException("Invalid coin: " + coinValue);
         }
+
         insertedSoFar += coinValue;
         timeBought = insertedSoFar / 5 * 2;
     }
@@ -46,16 +72,48 @@ public class PayStationImpl implements PayStation {
     @Override
     public Receipt buy() {
         Receipt r = new ReceiptImpl(timeBought);
+        totalEarned += insertedSoFar;
         reset();
         return r;
     }
 
     @Override
-    public void cancel() {
+    public Map<Integer, Integer> cancel() {
+        
+        if (nickelCounter != 0) {
+            coinMap.put(nickel, nickelCounter);
+        }
+
+        
+        if (dimeCounter != 0) {
+            coinMap.put(dime, dimeCounter);
+        }
+
+        if (quarterCounter != 0) {
+            coinMap.put(quarter, quarterCounter);
+        }
+        
+        Map<Integer, Integer> temp = new HashMap<>();
+        temp.putAll(coinMap);
         reset();
+        return temp;
     }
     
     private void reset() {
         timeBought = insertedSoFar = 0;
+        nickelCounter = 0;
+        dimeCounter = 0;
+        quarterCounter = 0;
+        
+        coinMap.remove(nickel);
+        coinMap.remove(dime);
+        coinMap.remove(quarter);
+    }
+    
+    public int empty() {
+        int temp = totalEarned;
+        totalEarned = 0;
+        return temp;
+        
     }
 }
