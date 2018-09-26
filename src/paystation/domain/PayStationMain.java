@@ -62,8 +62,28 @@ public class PayStationMain {
                     System.out.println("Coins returned: " + ps.cancel() + "\n");
                     break;
                 case 5:
+                    int rateChoice;
+                    System.out.println("Please pick a rate strategy: ");
+                    System.out.println("1. Linear Rate");
+                    System.out.println("2. Progressive Rate");
+                    System.out.println("3. Alternating Rate\n");
+                    System.out.print(">> ");
+                    rateChoice = keyboard.nextInt();
+                    System.out.println("");
                     
+                    switch (rateChoice) {
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        default:
+                            System.out.println("Invalid choice. \n");
+                    }
                     break;
+                default:
+                    System.out.println("Invalid choice. \n");
             }
         }
     }
