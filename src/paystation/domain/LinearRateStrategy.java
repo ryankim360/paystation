@@ -12,9 +12,21 @@ package paystation.domain;
 public class LinearRateStrategy implements RateStrategy{
     
     
-    public int calulateTime (int insertedSoFar) {
+    @Override
+    public int calculateLinearTime (int insertedSoFar) {
         int timeBought;
         timeBought = insertedSoFar / 5 * 2;
         return timeBought;
     }
+
+    @Override
+    public int calculateProgressiveTime(int insertedSoFar) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int calulateAlternativeTime(int insertedSoFar) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

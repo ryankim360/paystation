@@ -22,6 +22,7 @@ public class PayStationMain {
         Scanner keyboard = new Scanner(System.in);
         int choice;
         int coinInput = 0;
+        int rateChoice = 1;
         
         PayStationImpl ps = new PayStationImpl();
         
@@ -45,7 +46,7 @@ public class PayStationMain {
                     coinInput = keyboard.nextInt();
                     System.out.println("");
                 try {
-                    ps.addPayment(coinInput);
+                    ps.addPayment(coinInput, rateChoice);
                 } catch (IllegalCoinException ex) {
                     //Logger.getLogger(PayStationMain.class.getName()).log(Level.SEVERE, null, ex);
                     System.out.println("Invalid Coin: " + coinInput + "\n");
@@ -62,7 +63,6 @@ public class PayStationMain {
                     System.out.println("Coins returned: " + ps.cancel() + "\n");
                     break;
                 case 5:
-                    int rateChoice;
                     System.out.println("Please pick a rate strategy: ");
                     System.out.println("1. Linear Rate");
                     System.out.println("2. Progressive Rate");
@@ -73,10 +73,13 @@ public class PayStationMain {
                     
                     switch (rateChoice) {
                         case 1:
+                            System.out.println("You have chosen Linear Rate Strategy.\n");
                             break;
                         case 2:
+                            System.out.println("You have chosen Progressive Rate Strategy.\n");
                             break;
                         case 3:
+                            System.out.println("You have chosen Alternating Rate Strategy.\n");
                             break;
                         default:
                             System.out.println("Invalid choice. \n");

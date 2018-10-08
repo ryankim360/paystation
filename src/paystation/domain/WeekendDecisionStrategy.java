@@ -9,12 +9,7 @@ package paystation.domain;
  *
  * @author ryankim
  */
-public interface RateStrategy {
+public interface WeekendDecisionStrategy {
     
-    public int calculateLinearTime (int insertedSoFar);
-    
-    public int calculateProgressiveTime (int insertedSoFar);
-    
-    public int calulateAlternativeTime (int insertedSoFar);
-
+    public boolean isWeekend();
 }

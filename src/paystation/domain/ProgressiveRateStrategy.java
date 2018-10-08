@@ -11,10 +11,30 @@ package paystation.domain;
  */
 public class ProgressiveRateStrategy implements RateStrategy{
     
-    public int calulateTime (int insertedSoFar) {
-        int timeBought;
-        timeBought =
-        return timeBought;
+    @Override
+    public int calculateProgressiveTime (int insertedSoFar) {
+        int returnTime = 0;
+        if (insertedSoFar >= 350) {
+            returnTime = (insertedSoFar - 350)/5 + 120;
+        }
+        else if (insertedSoFar >= 150) {
+            insertedSoFar -= 150;
+            returnTime = (insertedSoFar * 3/10) + 60;
+        }
+        else {
+            returnTime = (insertedSoFar * 2)/5;
+        }
+        return returnTime;
+    }
+
+    @Override
+    public int calculateLinearTime(int insertedSoFar) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int calulateAlternativeTime(int insertedSoFar) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

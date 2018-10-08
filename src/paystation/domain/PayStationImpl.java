@@ -41,7 +41,7 @@ public class PayStationImpl implements PayStation {
     }
 
     @Override
-    public void addPayment(int coinValue)
+    public void addPayment(int coinValue, int rateChoice)
             throws IllegalCoinException {
         
         switch (coinValue) {
@@ -59,7 +59,24 @@ public class PayStationImpl implements PayStation {
         }
 
         insertedSoFar += coinValue;
-        timeBought = insertedSoFar / 5 * 2;
+        System.out.println("You have added " + insertedSoFar + " worth of coins.");
+     
+        switch (rateChoice) {
+                case 1:
+                    RateStrategy rsl = new LinearRateStrategy();
+                    timeBought = rsl.calculateLinearTime(insertedSoFar);
+                    break;
+                case 2:
+                    RateStrategy rsp = new ProgressiveRateStrategy();
+                    timeBought = rsp.calculateProgressiveTime(insertedSoFar);
+                    break;
+                case 3:
+                    RateStrategy rsa = new AlternativeRateStrategy();
+                    timeBought = rsa.calulateAlternativeTime(insertedSoFar);
+                    break;
+            }
+        System.out.println("Time bought: " + timeBought);
+           
     }
 
     @Override
