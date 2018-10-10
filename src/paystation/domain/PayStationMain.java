@@ -20,7 +20,7 @@ public class PayStationMain {
      */
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
-        int choice;
+        String choice;
         int coinInput = 0;
         int rateChoice = 1;
         
@@ -37,57 +37,64 @@ public class PayStationMain {
             System.out.println("5. Change Rate Strategy \n");
             
             System.out.print(">> ");
-            choice = keyboard.nextInt();
+            choice = keyboard.next();
             System.out.println("");
-            
-            switch (choice) {
-                case 1: 
-                    System.out.print("Please insert coins: ");
-                    coinInput = keyboard.nextInt();
-                    System.out.println("");
-                try {
-                    ps.addPayment(coinInput, rateChoice);
-                } catch (IllegalCoinException ex) {
-                    //Logger.getLogger(PayStationMain.class.getName()).log(Level.SEVERE, null, ex);
-                    System.out.println("Invalid Coin: " + coinInput + "\n");
-                }
-                    break;
-                case 2:
-                    System.out.println("Time bought(minutes): " + ps.readDisplay() + "\n");
-                    break;
-                case 3:
-                    Receipt r = ps.buy();
-                    System.out.println("Receipt: " +  r.value() + " minutes.\n");
-                    break;
-                case 4:
-                    System.out.println("Coins returned: " + ps.cancel() + "\n");
-                    break;
-                case 5:
-                    System.out.println("Please pick a rate strategy: ");
-                    System.out.println("1. Linear Rate");
-                    System.out.println("2. Progressive Rate");
-                    System.out.println("3. Alternating Rate\n");
-                    System.out.print(">> ");
-                    rateChoice = keyboard.nextInt();
-                    System.out.println("");
-                    
-                    switch (rateChoice) {
-                        case 1:
-                            System.out.println("You have chosen Linear Rate Strategy.\n");
-                            break;
-                        case 2:
-                            System.out.println("You have chosen Progressive Rate Strategy.\n");
-                            break;
-                        case 3:
-                            System.out.println("You have chosen Alternating Rate Strategy.\n");
-                            break;
-                        default:
-                            System.out.println("Invalid choice. \n");
+            if ("1".equals(choice) || "2".equals(choice) || "3".equals(choice) || "4".equals(choice) || "5".equals(choice)) {
+                switch (choice) {
+                    case "1": 
+                        System.out.print("Please insert coins: ");
+                        coinInput = keyboard.nextInt();
+                        System.out.println("");
+                    try {
+                        ps.addPayment(coinInput, rateChoice);
+                    } catch (IllegalCoinException ex) {
+                        //Logger.getLogger(PayStationMain.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("Invalid Coin: " + coinInput + "\n");
                     }
-                    break;
-                default:
-                    System.out.println("Invalid choice. \n");
+                        break;
+                    case "2":
+                        System.out.println("Time bought(minutes): " + ps.readDisplay(rateChoice) + "\n");
+                        break;
+                    case "3":
+                        Receipt r = ps.buy();
+                        System.out.println("Receipt: " +  r.value() + " minutes.\n");
+                        System.exit(0);
+                        break;
+                    case "4":
+                        System.out.println("Coins returned: " + ps.cancel() + "\n");
+                        break;
+                    case "5":
+                        System.out.println("Please pick a rate strategy: ");
+                        System.out.println("1. Linear Rate");
+                        System.out.println("2. Progressive Rate");
+                        System.out.println("3. Alternating Rate\n");
+                        System.out.print(">> ");
+                        rateChoice = keyboard.nextInt();
+                        System.out.println("");
+
+                        switch (rateChoice) {
+                            case 1:
+                                System.out.println("You have chosen Linear Rate Strategy.\n");
+                                break;
+                            case 2:
+                                System.out.println("You have chosen Progressive Rate Strategy.\n");
+                                break;
+                            case 3:
+                                System.out.println("You have chosen Alternating Rate Strategy.\n");
+                                break;
+                            default:
+                                System.out.println("Invalid choice. \n");
+                        }
+                        break;
+                    default:
+                        System.out.println("Invalid choice. \n");   
+                }
+            } else {
+                System.out.println("Invalid choice");
+                System.out.println("");
             }
+            
+
         }
     }
     

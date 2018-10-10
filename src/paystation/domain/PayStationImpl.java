@@ -59,26 +59,25 @@ public class PayStationImpl implements PayStation {
         }
 
         insertedSoFar += coinValue;
-     
-        switch (rateChoice) {
-                case 1:
-                    RateStrategy rsl = new LinearRateStrategy();
-                    timeBought = rsl.calculateLinearTime(insertedSoFar);
-                    break;
-                case 2:
-                    RateStrategy rsp = new ProgressiveRateStrategy();
-                    timeBought = rsp.calculateProgressiveTime(insertedSoFar);
-                    break;
-                case 3:
-                    RateStrategy rsa = new AlternativeRateStrategy();
-                    timeBought = rsa.calulateAlternativeTime(insertedSoFar);
-                    break;
-            }
            
     }
 
     @Override
-    public int readDisplay() {
+    public int readDisplay(int rateChoice) {
+        switch (rateChoice) {
+            case 1:
+                RateStrategy rsl = new LinearRateStrategy();
+                timeBought = rsl.calculateLinearTime(insertedSoFar);
+                break;
+            case 2:
+                RateStrategy rsp = new ProgressiveRateStrategy();
+                timeBought = rsp.calculateProgressiveTime(insertedSoFar);
+                break;
+            case 3:
+                RateStrategy rsa = new AlternativeRateStrategy();
+                timeBought = rsa.calulateAlternativeTime(insertedSoFar);
+                break;
+        }
         return timeBought;
     }
 
@@ -127,6 +126,29 @@ public class PayStationImpl implements PayStation {
         int temp = totalEarned;
         totalEarned = 0;
         return temp;
-        
     }
+    
+    /*
+    @Override
+    public void recalculateTime(int insertedSoFar, int rateChoice) {
+        if (rateChoice == 1) {
+            timeBought = insertedSoFar / 5 * 2;
+        } else if (rateChoice == 2) {
+            if (insertedSoFar >= 350) {
+                timeBought = (insertedSoFar - 350)/5 + 120;
+            }
+            else if (insertedSoFar >= 150) {
+                insertedSoFar -= 150;
+                timeBought = (insertedSoFar * 3/10) + 60;
+            }
+            else {
+                timeBought = (insertedSoFar * 2)/5;
+            }
+        } else if (rateChoice == 3) {
+            RateStrategy rsa = new AlternativeRateStrategy();
+            timeBought = rsa.calulateAlternativeTime(insertedSoFar);
+        }
+
+    }
+    */
 }
