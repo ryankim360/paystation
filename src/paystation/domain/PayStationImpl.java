@@ -59,7 +59,6 @@ public class PayStationImpl implements PayStation {
         }
 
         insertedSoFar += coinValue;
-        System.out.println("You have added " + insertedSoFar + " worth of coins.");
      
         switch (rateChoice) {
                 case 1:
@@ -75,7 +74,6 @@ public class PayStationImpl implements PayStation {
                     timeBought = rsa.calulateAlternativeTime(insertedSoFar);
                     break;
             }
-        System.out.println("Time bought: " + timeBought);
            
     }
 
